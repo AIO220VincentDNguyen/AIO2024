@@ -9,15 +9,12 @@ def load_vocab(file_path):
 
 def levenshtein_distance(token1, token2):
     distances = [[0] * (len(token2) + 1) for i in range(len(token1) + 1)]
-
     for t1 in range(len(token1) + 1):   
         distances[t1][0] = t1
-
     for t2 in range(len(token2) + 1):
         distances[0][t2] = t2
 
     a = 0
-
     b = 0
     c = 0
 
