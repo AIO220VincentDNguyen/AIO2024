@@ -37,7 +37,7 @@ def load_vocab(file_path):
     words = sorted(set([line.strip().lower() for line in lines]))
     return words
 
-vocabs = load_vocab(file_path='./D:\python\AIO2024\week 4\vocab.txt')
+vocabs = load_vocab(file_path='./vocab.txt')
 
 st.title('Word Correction')
 word = st.text_input('Your Word')
