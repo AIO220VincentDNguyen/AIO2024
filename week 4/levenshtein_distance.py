@@ -31,23 +31,37 @@ def levenshtein_distance(token1, token2):
 
         return distances[len(token1)][len(token2)]
 
-
 def load_vocab(file_path):
     with open(file_path, 'r') as f:
         lines = f.readlines()
     words = sorted(set([line.strip().lower() for line in lines]))
     return words
 
-vocabs = load_vocab(file_path='./D:\python\AIO2024\week 4\vocab.txt')
+def main():
+    vocabs = load_vocab(file_path='vocab.txt')
+    st.title("Word Correction using Levenshtein Distance")
+    word = st.text_input('Word:')
 
-st.title('Word Correction')
-word = st.text_input('Your Word')
+    if st.button("Compute"):
 
-if st.button('Compute'):
-    distance = dict()
-    for vocab in vocabs:
-        distance = levenshtein_distance(word, vocab)
-        distances[vocab] = distance
-    sorted_distance = dict(sorted(distance, items(), key=lambda item: item[1]))
-    correct_word = list(sorted_distance.key())[0]
-    st.write('Correct: ', correct_word)
+        # compute levenshtein distance
+        leven_distances = dict()
+        for vocab in vocabs:
+            leven_distances[vocab] = levenshtein_distance(word, vocab)
+
+        # sorted by distance
+        sorted_distances = dict(
+            sorted(leven_distances.items(), key=lambda item: item[1]))
+        correct_word = list(sorted_distances.keys())[0]
+        st.write('Correct word: ', correct_word)
+
+        col1, col2 = st.columns(2)
+        col1.write('Vocabulary:')
+        col1.write(vocabs)
+
+        col2.write('Distances:')
+        col2.write(sorted_distances)
+
+
+if __name__ == "__main__":
+    main()
